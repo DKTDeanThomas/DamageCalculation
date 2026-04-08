@@ -5,7 +5,6 @@ using UnityEngine.Rendering;
 
 public class DamageCalc : MonoBehaviour
 {
-
     private float attackerStrength;
     private float attackermagic;
     private float TargetDefense;
@@ -51,6 +50,8 @@ public class DamageCalc : MonoBehaviour
     private float basicAccuracyRate;
     private float spellAccuracyRate;
     private float accuracyMOD;
+
+    public float difficulty;
 
     // Losing Resources
 
@@ -530,7 +531,7 @@ public class DamageCalc : MonoBehaviour
     {
         if (defenderLevel >= attackerLevel + 3)
         {
-            float tempLC = 1 - Mathf.Sqrt(defenderLevel / attackerLevel - 1) * basicSumFactor * (defenderLevel - attackerLevel - 2);
+            float tempLC = 1 - Mathf.Sqrt(defenderLevel / attackerLevel - 1) * spellSumFactor * (defenderLevel - attackerLevel - 2);
 
             if (tempLC < 0.5)
             {
@@ -542,7 +543,7 @@ public class DamageCalc : MonoBehaviour
 
         else if (attackerLevel >= defenderLevel + 3)
         {
-            float tempLC = 1 + (Mathf.Sqrt(1 - (defenderLevel / attackerLevel)) * basicSumFactor * (attackerLevel - defenderLevel - 2) * 1.2f);
+            float tempLC = 1 + (Mathf.Sqrt(1 - (defenderLevel / attackerLevel)) * spellSumFactor * (attackerLevel - defenderLevel - 2) * 1.2f);
 
             if (tempLC > 1.5)
             {
