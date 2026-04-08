@@ -1,0 +1,29 @@
+Author: Dean Thomas
+
+** RPG Damage Calculation System
+This system handles turn-based damage calculation for skills including stat scaling, critical hit checks and weakness/resistance checks
+
+**How it works: 
+Each skill in game is stored in a scriptable object format. Every skill has its own name, type (healing, magic physical, buff etc), power/damage value and element.
+Based on a skill's type, which is determined in a Combat Manager script, a different function is called to handle the functionality of each skill.
+Damaging skills like Magic or Physical ones call the "SpellAttackCalculation" function, passing through:
+The attacker (user of the skill), target (who it is being used on), skill element, damage value, accuracy, critical chance, the skill's VFX and the skill type (physical or magic)
+
+
+**All in all, Damage is calculated procedurally in 3 stages, each tied to a different function:
+
+Stage 1: SpellAttackCalculation
+This function calculates an initial offense value for the attacker, to then be used to calculate the true base damage of the skill
+
+Stage 2: SpellAttackBase
+This function calculates the base damage value of the skill, before being modified by affinity calculations or buffs and debuffs (enchants/disenchants)
+
+Stage 3: SpellAttackModified
+This function calculates the final damage of each skill, then does a final critical and accuracy check to determine whether the skill hits the enemy or not and whether critical damage is applied
+
+Stage 4: SpawnSpellVFX
+This function simply handles the spawning in of damage and the VFX tied to each skill
+
+In between stages: AttackSumFactor, AttackLevelCorrection
+These functions simply adjust values based on level differences for controlled damage
+
